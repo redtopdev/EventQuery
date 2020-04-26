@@ -1,4 +1,5 @@
-﻿using EventQuery.DataContract;
+﻿
+using Engaze.Core.DataContract;
 using EventQuery.DataPersistance;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,9 @@ namespace EventQuery.Service
         /// </summary>
         /// <param name="request">eventid</param>
         /// <returns>event</returns>
-        public Event GetEvent(Guid eventid)
+        public Event GetEvent(Guid eventId)
         {
-            throw new NotImplementedException();
+            return repo.GetEvent(eventId);
         }
 
         /// <summary>
@@ -29,7 +30,14 @@ namespace EventQuery.Service
         /// <returns>list of events</returns>
         public IEnumerable<Event> GetEventsByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return repo.GetEventsByUserId(userId);
+            }
+            catch(Exception ex) 
+            {
+                throw;
+            }
         }
     }
 }

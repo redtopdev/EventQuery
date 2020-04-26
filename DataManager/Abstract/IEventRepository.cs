@@ -4,7 +4,7 @@
 
 namespace EventQuery.DataPersistance
 {
-    using EventQuery.DataContract;
+    using Engaze.Core.DataContract;
     using System;
     using System.Collections.Generic;
 
@@ -18,7 +18,7 @@ namespace EventQuery.DataPersistance
         /// </summary>
         /// <param name="userid">userId</param>
         /// <returns>list of event</returns>
-        IEnumerable<Guid> GetEventsIdsByuserId(Guid userid);
+        IEnumerable<Event> GetEventsByUserId(Guid userid);
 
        /// <summary>
        /// gets event by eventId
@@ -26,12 +26,5 @@ namespace EventQuery.DataPersistance
        /// <param name="eventId">eventId</param>
        /// <returns>event</returns>
         Event GetEvent(Guid eventId);
-
-      /// <summary>
-      /// gets events by eventIds
-      /// </summary>
-      /// <param name="eventIds">list of event Ids</param>
-      /// <returns>list of event</returns>
-        IEnumerable<Event> GetEvents(IEnumerable<Guid> eventIds);
     }
 }

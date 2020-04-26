@@ -1,4 +1,4 @@
-﻿using EventQuery.DataContract;
+﻿using Engaze.Core.DataContract;
 using System;
 using System.Collections.Generic;
 

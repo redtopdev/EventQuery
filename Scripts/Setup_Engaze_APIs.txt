@@ -1,15 +1,25 @@
 sudo docker ps
- -> check if cassandra is running
+ -> 
+check if cassandra is running
+ 
 
 if not run below docker-compose.yml
 
  -> docker-compose -f docker-compose.yml up
 
+
+
 Setting up Keyspace and Table in Cassandra:
-sudo docker exec -it cassandra-node-2 bash
+
+
+sudo docker exec -it cassandra-node-2 
+bash
  bash>  cqlsh
- cqlsh> use dev;
  
+cqlsh> use dev;
+ 
+
+
 CREATE TABLE UserProfile(
 UserId uuid PRIMARY KEY,
 GCMClientId text,
@@ -21,6 +31,19 @@ MobileNumber text,
 CreatedOn timestamp,
 IsDeleted boolean
 );
+
+CREATE TABLE EventData(
+EventId uuid, 
+EventDetails text, 
+PRIMARY KEY (EventId) );
+
+
+CREATE TABLE EventParticipantMapping(
+UserId uuid, 
+EventId uuid,
+PRIMARY KEY (UserId, EventId));
+
+
 
 
 Setting up API Code and build

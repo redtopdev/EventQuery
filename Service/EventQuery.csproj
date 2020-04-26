@@ -4,18 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>EventQuery.Service</AssemblyName>
     <RootNamespace>EventQuery.Service</RootNamespace>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Logs\**" />
-    <Compile Remove="Middleware\**" />
-    <Content Remove="Logs\**" />
-    <Content Remove="Middleware\**" />
-    <EmbeddedResource Remove="Logs\**" />
-    <EmbeddedResource Remove="Middleware\**" />
-    <None Remove="Logs\**" />
-    <None Remove="Middleware\**" />
-  </ItemGroup>
+  </PropertyGroup> 
 
   <ItemGroup>
     <PackageReference Include="Engaze.Core.Web" Version="1.0.7-alpha" />
@@ -27,5 +16,10 @@
     <ProjectReference Include="..\DataManager\DataPersistance.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>

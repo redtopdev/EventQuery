@@ -7,11 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Engaze.Core.DataContract" Version="1.0.7-alpha" />
     <PackageReference Include="Engaze.Core.Persistance.Cassandra" Version="1.0.5-alpha" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DataContract\DataContract.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
 </Project>
