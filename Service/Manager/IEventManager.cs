@@ -20,8 +20,11 @@ namespace EventQuery.Service
         /// <returns>list of events</returns>
         IEnumerable<Event> GetEventsByUserId(Guid userId);
 
-
-
-
+        /// <summary>
+        /// Gets running events by userid
+        /// </summary>
+        /// <param name="userId">userid</param>
+        /// <returns>list of events</returns>
+        IEnumerable<Event> GetRunningEventsByUserId(Guid userId);
     }
 }

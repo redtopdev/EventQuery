@@ -56,13 +56,30 @@ namespace EventQuery.DataPersistance
             }
         }
 
+        /// <summary>
+        /// gets events by userId
+        /// </summary>
+        /// <param name="userid">userId</param>
+        /// <returns>list of event</returns>
+        public IEnumerable<Event> GetRunningEventsByUserId(Guid userid)
+        {
+            try
+            {
+                return GetRunningEventsByEventIds(GetEventIdsByUserId(userid));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Error during GetEventsByUserId." + ex.ToString());
+                throw;
+            }
+        }
 
         /// <summary>
         /// gets events by userId
         /// </summary>
         /// <param name="userid">userId</param>
         /// <returns>list of event</returns>
-        public IEnumerable<Guid> GetEventIdsByUserId(Guid userid)
+        private IEnumerable<Guid> GetEventIdsByUserId(Guid userid)
         {
             try
             {
@@ -84,11 +101,13 @@ namespace EventQuery.DataPersistance
         /// </summary>
         /// <param name="userid">userId</param>
         /// <returns>list of event</returns>
-        public IEnumerable<Event> GetEventsByEventIds(IEnumerable<Guid> eventIds)
+        private IEnumerable<Event> GetEventsByEventIds(IEnumerable<Guid> eventIds)
         {
             try
             {
-                string query = "SELECT EventDetails FROM EventData WHERE EventId IN (" + string.Join(",", eventIds.ToList()) + ");";
+                string datetimeUtcIso8601 = DateTime.UtcNow.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss.fffzzz");
+                string query = "SELECT EventDetails FROM EventData WHERE EventId IN (" + string.Join(",", eventIds.ToList()) + ") " +
+                    "and EndTime > '"+ datetimeUtcIso8601 + "' ALLOW FILTERING;";
                 var sessionL = sessionCacheManager.GetSession(keySpace);
                 var preparedStatement = sessionL.Prepare(query);
                 var resultSet = sessionL.Execute(preparedStatement.Bind());
@@ -101,6 +120,30 @@ namespace EventQuery.DataPersistance
             }
         }
 
+        /// <summary>
+        /// gets events by userId
+        /// </summary>
+        /// <param name="userid">userId</param>
+        /// <returns>list of event</returns>
+        private IEnumerable<Event> GetRunningEventsByEventIds(IEnumerable<Guid> eventIds)
+        {
+            try
+            {
+                string datetimeUtcIso8601 = DateTime.UtcNow.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss.fffzzz");
+                string query = "SELECT EventDetails FROM EventData WHERE EventId IN (" + string.Join(",", eventIds.ToList()) + ") " +
+                    "and StartTime >= '" + datetimeUtcIso8601 +
+                    "and EndTime > '" + datetimeUtcIso8601 + "' ALLOW FILTERING;";
+                var sessionL = sessionCacheManager.GetSession(keySpace);
+                var preparedStatement = sessionL.Prepare(query);
+                var resultSet = sessionL.Execute(preparedStatement.Bind());
+                return resultSet.Select(row => JsonConvert.DeserializeObject<Event>(row.GetValue<string>("eventdetails")));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Error during GetEventsByUserId." + ex.ToString());
+                throw;
+            }
+        }
         /// <summary>
         /// gets event by eventId
         /// </summary>

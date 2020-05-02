@@ -20,6 +20,13 @@ namespace EventQuery.DataPersistance
         /// <returns>list of event</returns>
         IEnumerable<Event> GetEventsByUserId(Guid userid);
 
+        /// <summary>
+        /// gets events by userId
+        /// </summary>
+        /// <param name="userid">userId</param>
+        /// <returns>list of event</returns>
+        IEnumerable<Event> GetRunningEventsByUserId(Guid userid);
+
        /// <summary>
        /// gets event by eventId
        /// </summary>

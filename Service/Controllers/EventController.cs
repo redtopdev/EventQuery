@@ -35,12 +35,23 @@ namespace EventQuery.Service
         [HttpGet("events/user/{userId:guid}")]       
         public IActionResult GetEventsByUserId(Guid userId)
         {
-            logger.LogInformation("Saving Profile");
+            logger.LogInformation("Fetching Events for User.");
 
             //put try catch only when you want to return custom message or status code, else this will
             //be caught in ExceptionHandling middleware so no need to put try catch here
 
             return Ok(eventManager.GetEventsByUserId(userId));
+        }
+
+        [HttpGet("events/running/user/{userId:guid}")]
+        public IActionResult GetRunningEventsByUserId(Guid userId)
+        {
+            logger.LogInformation("Fetching currently runningEvents for User.");
+
+            //put try catch only when you want to return custom message or status code, else this will
+            //be caught in ExceptionHandling middleware so no need to put try catch here
+
+            return Ok(eventManager.GetRunningEventsByUserId(userId));
         }
     }
 }

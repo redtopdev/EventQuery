@@ -30,14 +30,17 @@ namespace EventQuery.Service
         /// <returns>list of events</returns>
         public IEnumerable<Event> GetEventsByUserId(Guid userId)
         {
-            try
-            {
-                return repo.GetEventsByUserId(userId);
-            }
-            catch(Exception ex) 
-            {
-                throw;
-            }
+            return repo.GetEventsByUserId(userId);
+        }
+
+        /// <summary>
+        /// Gets running events by userid
+        /// </summary>
+        /// <param name="userId">userid</param>
+        /// <returns>list of events</returns>
+        public IEnumerable<Event> GetRunningEventsByUserId(Guid userId)
+        {
+            return repo.GetRunningEventsByUserId(userId);
         }
     }
 }
