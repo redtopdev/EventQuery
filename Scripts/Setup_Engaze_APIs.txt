@@ -33,7 +33,9 @@ IsDeleted boolean
 );
 
 CREATE TABLE EventData(
-EventId uuid, 
+EventId uuid,
+StartTime timestamp, 
+EndTime timestamp, 
 EventDetails text, 
 PRIMARY KEY (EventId) );
 
