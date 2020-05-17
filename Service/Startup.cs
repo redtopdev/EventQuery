@@ -17,7 +17,7 @@ namespace EventQuery.Service
 
         public override void ConfigureComponentServices(IServiceCollection services)
         {
-            services.ConfigureCassandraServices(Configuration);
+            services.ConfigureCloudCassandra(Configuration);
             services.AddTransient<IEventManager, EventManager>();
             services.AddTransient<IEventRepository, EventRepository>();
         }
